@@ -16,4 +16,5 @@ CONTRIBUTION
 
 3. Pull Request
     To create pull request, you can fork, create branch, and make pr.
-    Since now we dont
+    Since now we do not use any CI, we will manually pull and test.
+    And do not push any binary, image, or any other.

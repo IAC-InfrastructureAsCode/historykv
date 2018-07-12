@@ -854,7 +854,7 @@
             <textarea id="form-bottom-box-value" rows="7"></textarea>
             <div id="bottom-box-button-right">
                 <input type="button" value="Delete Key" id="delete-key" class="form-button form-delete fa-delete" />
-                <input type="submit" value="Update Value" class="form-button form-submit" />
+                <input type="submit" value="Update Value" id="update-key-bottom" class="form-button form-submit" />
             </div>
         </form>
     </div>
@@ -1077,7 +1077,12 @@
                         var boxBottom = boxTop + $("#left-sidebar").height();
 
                         if(offsetDiv > (boxBottom+30) || offsetDiv < (boxTop-30)) {
-                            var scrollTo = $("#sidebar-wrapper").offset().top + offsetDiv - 200;
+                            var scrollTo = 0;
+                            if(offsetDiv > boxBottom) {
+                                scrollTo += $("#left-sidebar").scrollTop() + (offsetDiv - boxTop - 100);
+                            } else if(offsetDiv < boxTop) {
+                                scrollTo += $("#left-sidebar").scrollTop() - (boxTop - offsetDiv + 100);
+                            }
                             if(scrollTo < 0) {
                                 scrollTo = 0;
                             }
@@ -1214,7 +1219,12 @@
                             var boxBottom = boxTop + $("#left-sidebar").height();
 
                             if(offsetDiv > (boxBottom+30) || offsetDiv < (boxTop-30)) {
-                                var scrollTo = $("#sidebar-wrapper").offset().top + offsetDiv - 200;
+                                var scrollTo = 0;
+                                if(offsetDiv > boxBottom) {
+                                    scrollTo += $("#left-sidebar").scrollTop() + (offsetDiv - boxTop - 100);
+                                } else if(offsetDiv < boxTop) {
+                                    scrollTo += $("#left-sidebar").scrollTop() - (boxTop - offsetDiv + 100);
+                                }
                                 if(scrollTo < 0) {
                                     scrollTo = 0;
                                 }
@@ -1259,7 +1269,8 @@
                     $(".botbox").addClass("hide");
                     $("#form-bottom-box").removeClass("hide");
                     $("#history-box").removeClass("hide");
-                    $("#bottom-box-button-right").removeClass("hide");
+                    $("#update-key-bottom").val("Update Value");
+                    $("#update-key-bottom").addClass("form-submit");
                     $("#history-box-list").html("");
 
                     $.each(res.data.history, function(i, history) {
@@ -1340,7 +1351,8 @@
                 if(res.data.message_error != "") {
                     alertError(res.data.message_error);
                 } else {
-                    $("#bottom-box-button-right").addClass("hide");
+                    $("#update-key-bottom").val("Revert To This Value");
+                    $("#update-key-bottom").removeClass("form-submit");
                     $("#form-bottom-box-value").attr('readonly','readonly');
                     $("#form-bottom-box-key").val(res.data.key);
                     $("#form-bottom-box-value").val(res.data.value);

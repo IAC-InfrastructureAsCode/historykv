@@ -2,18 +2,25 @@
 # HistoryKV
 
 HistoryKV is a simple app for storing history of Consul Key Value.
-Using login, it save the person who edited it.
+
+Using a simple user-password login, it save the person who edited it, and save the last value.
 
 
 ## Installation
 
-Download on release page.
+Download on [Release Page](https://github.com/tokopedia/historykv/releases).
 
 ```
-wget -O historykv http://release.github.com/
+wget -O historykv https://github.com/tokopedia/historykv/releases/download/[version]/historykv-[os]
 chmod +x historykv
 ./historykv
 ```
+And then access http://127.0.0.1:9500/ via your favorite browser. First user is admin, with password admin.
+
+You can add more user in the admin panel.
+
+
+
 Note: It is recommended to use ACL System on the Consul. [Read Here](https://www.consul.io/docs/guides/acl.html) for more info.
 
 ## Parameter
@@ -164,18 +171,31 @@ Domain = "company.com"
 
 To use Google Login OAuth2, you must specify the CallbackURI (Application URI), Client ID, Client Secret, Domain in the configuration.
 
+
+
 To create Client ID and Secret, you must go to [Google Developer Console](https://console.developers.google.com/).
+
 Then select New Project, fill the form as necessary.
+
 Click on Credentials Tab, Create Credentials -> OAuth ID.
+
 Select Web Application, fill name as you wish.
 
+
+
 Javascript Origin is URI of your domain.
+
 Callback URI: http://your.consul.domain/glogin/callback
+
 If you use folder on the HistoryKV, you must change it to http://your.consul.domain/path/glogin/callback
+
+
 
 Note that Google only allow a valid domain, but allowing private domain (not accessible by public).
 
 For more info about Google OAuth2, [Read Here](https://developers.google.com/identity/protocols/OAuth2).
+
+
 
 ## Contribution
 
@@ -184,13 +204,19 @@ You can read CONTRIBUTION file for more info.
 ## Credit
 
 ### HTML
+
 SVG Images by [FontAwesome](https://fontawesome.com/license)
+
 JQuery: jquery.com
 
-### Golang
+### GoLang
+
 SQLite: github.com/mattn/go-sqlite3
+
 MySQL: github.com/go-sql-driver/mysql
+
 MemorTTL: github.com/koding/cache
+
 Redis: github.com/xuyu/goredis
 
 ## License

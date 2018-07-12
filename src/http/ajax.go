@@ -132,7 +132,7 @@ func (h *HTTP) DeleteKey(w http.ResponseWriter, r *http.Request) {
 		} else {
 			isDeleted := h.API.DeleteKey(postKey, h.GetTokenFromRequest(r))
 			if isDeleted {
-				if postKey[len(postKey)-1] == '/' {
+				if postKey[len(postKey)-1] != '/' {
 					h.DB.AddHistory(postKey, "[DELETED]", userName, time.Now().Unix())
 				}
 				returnData.Success = true
