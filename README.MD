@@ -55,7 +55,7 @@ We have 2 version of configuration, Parameter and Config File.
 
   -disable-login [true/false]
         Disable Login, force all user as anonymous.
-        Default: 5
+        Default: 
 
   -sqlite-path [path/to/file.db]
         Location for SQLite db to write and read.
