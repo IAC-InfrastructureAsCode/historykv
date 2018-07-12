@@ -79,7 +79,7 @@ func main() {
 	}
 
 	// Init HTTP
-	httpServe := historyHTTP.New(session, db, consulAPI, glogin)
+	httpServe := historyHTTP.New(session, db, consulAPI, glogin, cfg.History.DisableLogin)
 
 	// Serve HTTP
 	http.HandleFunc("/glogin/login", httpServe.GoogleLogin)

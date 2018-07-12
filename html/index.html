@@ -1789,6 +1789,13 @@
         } else {
             $("#username-header").html(user);
             $("#header-user").removeClass("hide");
+            if(user == "anonymous") {
+                $("#header-user").css({ textAlign: "right" });
+                $("#header-user-link").addClass("hide");
+            } else {
+                $("#header-user").removeAttr("style");
+                $("#header-user-link").removeClass("hide");
+            }
         }
     }
 

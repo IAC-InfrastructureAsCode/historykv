@@ -279,6 +279,12 @@ func (h *HTTP) Login(w http.ResponseWriter, r *http.Request) {
 		MessageError: "",
 	}
 
+	if h.IsDisableLogin {
+		returnData.MessageError = "Login is disabled"
+		fmt.Fprintf(w, "%s", h.CreateResponse("anonymous", returnData))
+		return
+	}
+
 	postUser := r.PostFormValue("user")
 	postPass := r.PostFormValue("pass")
 
@@ -318,6 +324,12 @@ func (h *HTTP) Logout(w http.ResponseWriter, r *http.Request) {
 	returnData := httpSuccess{
 		Success:      false,
 		MessageError: "",
+	}
+
+	if h.IsDisableLogin {
+		returnData.MessageError = "Login is disabled"
+		fmt.Fprintf(w, "%s", h.CreateResponse("anonymous", returnData))
+		return
 	}
 
 	cookieSID, errCookieSID := r.Cookie("SID_HKV")

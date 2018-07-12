@@ -1,6 +1,7 @@
 /vendor/
 /historykv
 /historykv.conf
+/historykv.ini
 /historykv.db
 /historykv.zip
 /src/http/page-admin.go

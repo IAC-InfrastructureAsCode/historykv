@@ -7,7 +7,7 @@ import (
 )
 
 func (h *HTTP) GoogleLogin(w http.ResponseWriter, r *http.Request) {
-	if h.GLogin.IsEnabled() {
+	if !h.IsDisableLogin && h.GLogin.IsEnabled() {
 		http.Redirect(w, r, h.GLogin.LoginURL(), 302)
 	} else {
 		w.Header().Set("Content-Type", "text/html")
@@ -18,7 +18,7 @@ func (h *HTTP) GoogleLogin(w http.ResponseWriter, r *http.Request) {
 func (h *HTTP) GoogleCallback(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 
-	if h.GLogin.IsEnabled() {
+	if !h.IsDisableLogin && h.GLogin.IsEnabled() {
 		getState := r.FormValue("state")
 		getCode := r.FormValue("code")
 		if getState != "" && getCode != "" {

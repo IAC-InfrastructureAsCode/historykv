@@ -53,6 +53,10 @@ We have 2 version of configuration, Parameter and Config File.
         Limit for History to save on database. If a key have more than 5, it will automatically deleted.
         Default: 5
 
+  -disable-login [true/false]
+        Disable Login, force all user as anonymous.
+        Default: 5
+
   -sqlite-path [path/to/file.db]
         Location for SQLite db to write and read.
         Default: ./historykv.db
@@ -113,6 +117,10 @@ Port = 9500
 ; Limit for History to save on database.
 ; If a key have more than 5, it will automatically deleted.
 Limit = 5
+
+; Disable Login, force all user as anonymous.
+; Empty means false (Use Login).
+DisableLogin =
 
 [DB]
 ; Location for SQLite db to write and read.
@@ -207,17 +215,17 @@ You can read CONTRIBUTION file for more info.
 
 SVG Images by [FontAwesome](https://fontawesome.com/license)
 
-JQuery: jquery.com
+JQuery: https://jquery.com
 
 ### GoLang
 
-SQLite: github.com/mattn/go-sqlite3
+SQLite: https://github.com/mattn/go-sqlite3
 
-MySQL: github.com/go-sql-driver/mysql
+MySQL: https://github.com/go-sql-driver/mysql
 
-MemorTTL: github.com/koding/cache
+MemoryTTL: https://github.com/koding/cache
 
-Redis: github.com/xuyu/goredis
+Redis: https://github.com/xuyu/goredis
 
 ## License
 [MIT](https://opensource.org/licenses/MIT)

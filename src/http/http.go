@@ -12,13 +12,14 @@ import (
 )
 
 type HTTP struct {
-	Session historySession.Session
-	DB      historyDB.DB
-	API     historyConsul.Consul
-	GLogin  historyGoogleLogin.GLogin
+	Session        historySession.Session
+	DB             historyDB.DB
+	API            historyConsul.Consul
+	GLogin         historyGoogleLogin.GLogin
+	IsDisableLogin bool
 }
 
-func New(session historySession.Session, db historyDB.DB, api historyConsul.Consul, glogin historyGoogleLogin.GLogin) *HTTP {
+func New(session historySession.Session, db historyDB.DB, api historyConsul.Consul, glogin historyGoogleLogin.GLogin, disableLogin bool) *HTTP {
 	var h HTTP
 
 	if session == nil {
@@ -41,11 +42,16 @@ func New(session historySession.Session, db historyDB.DB, api historyConsul.Cons
 	h.DB = db
 	h.API = api
 	h.GLogin = glogin
+	h.IsDisableLogin = disableLogin
 
 	return &h
 }
 
 func (h *HTTP) GetUserFromRequest(r *http.Request) string {
+	if h.IsDisableLogin {
+		return "anonymous"
+	}
+
 	cookieSID, errCookieSID := r.Cookie("SID_HKV")
 	if errCookieSID == nil {
 		sid := cookieSID.Value

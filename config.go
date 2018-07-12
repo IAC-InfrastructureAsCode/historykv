@@ -2,7 +2,9 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
+	"strings"
 
 	"gopkg.in/gcfg.v1"
 )
@@ -13,7 +15,8 @@ type Config struct {
 		Port int
 	}
 	History struct {
-		Limit int
+		Limit        int
+		DisableLogin bool
 	}
 	DB struct {
 		Path  string
@@ -45,6 +48,7 @@ func getConfig() *Config {
 	flagPort := flag.Int("port", 9500, "Port for HistoryKV to listen.")
 
 	flagHistoryLimit := flag.Int("limit", 5, "Limit for History to save.")
+	flagHistoryDisableLogin := flag.Bool("disable-login", false, "Disable Login, force all user as anonymous.")
 
 	// DB Flag
 	flagSQLitePath := flag.String("sqlite-path", "./historykv.db", "Location for SQLite db to write and read.")
@@ -101,6 +105,7 @@ func getConfig() *Config {
 		cfg.Listen.IP = *flagIP
 		cfg.Listen.Port = *flagPort
 		cfg.History.Limit = *flagHistoryLimit
+		cfg.History.DisableLogin = *flagHistoryDisableLogin
 		cfg.DB.Path = *flagSQLitePath
 		cfg.DB.MySQL = *flagUseMySQL
 		cfg.Session.Redis = *flagUseRedis
@@ -112,6 +117,23 @@ func getConfig() *Config {
 		cfg.GoogleLogin.ClientID = *flagGoogleClient
 		cfg.GoogleLogin.ClientSecret = *flagGoogleSecret
 		cfg.GoogleLogin.Domain = *flagGoogleDomain
+	}
+
+	cfg.Consul.Prefix = strings.TrimLeft(cfg.Consul.Prefix, "/")
+	if cfg.Consul.Prefix != "" && cfg.Consul.Prefix[len(cfg.Consul.Prefix)-1] != '/' {
+		cfg.Consul.Prefix = fmt.Sprintf("%s/", cfg.Consul.Prefix)
+	}
+
+	cfg.Consul.URI = strings.TrimRight(cfg.Consul.URI, "/")
+	if strings.Index(cfg.Consul.URI, "http") != 0 {
+		log.Fatalln("Config: Consul URI must start with http:// or https://")
+	}
+
+	if cfg.GoogleLogin.CallbackURI != "" {
+		cfg.GoogleLogin.CallbackURI = strings.TrimRight(cfg.GoogleLogin.CallbackURI, "/")
+		if strings.Index(cfg.Consul.URI, "http") != 0 {
+			log.Fatalln("Config: Consul URI must start with http:// or https://")
+		}
 	}
 
 	return &cfg
