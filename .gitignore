@@ -1,0 +1,8 @@
+/vendor/
+/historykv
+/historykv.conf
+/historykv.db
+/historykv.zip
+/src/http/page-admin.go
+/src/http/page-index.go
+/release/

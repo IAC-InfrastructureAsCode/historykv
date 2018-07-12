@@ -1,0 +1,19 @@
+CONTRIBUTION
+
+1. Building
+    - Minimum Golang Version is 1.10.2
+    - Always use dep vendor.
+    - Use `make all` to build and run
+
+2. Formatting / Code Style
+    Code style must be simple, and straightforward.
+    Every change made must be formatted:
+    - HTML
+        4 Spaces instead of Tab
+        Use double quote instead of single for Javascript and HTML Attribute
+    - Golang
+        Always use GOFMT before commiting.
+
+3. Pull Request
+    To create pull request, you can fork, create branch, and make pr.
+    Since now we dont
