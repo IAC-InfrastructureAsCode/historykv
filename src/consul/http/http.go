@@ -80,7 +80,12 @@ func (a *API) URLKeyDelete(key string, token string) string {
 		token = a.Token
 	}
 
-	return fmt.Sprintf("%s%s%s?token=%s&dc=%s&recurse=true", a.Host, ConsulKey, key, url.QueryEscape(token), url.QueryEscape(a.Datacenter))
+	recurse := ""
+	if len(key) > 0 && key[len(key)-1] == '/' {
+		recurse = "&recurse=true"
+	}
+
+	return fmt.Sprintf("%s%s%s?token=%s&dc=%s%s", a.Host, ConsulKey, key, url.QueryEscape(token), url.QueryEscape(a.Datacenter), recurse)
 }
 
 func (a *API) URLKeyGet(key string, token string) string {

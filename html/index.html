@@ -1266,6 +1266,7 @@
                     $("#form-bottom-box-value").val(res.data.value);
                     $("#form-bottom-box-value").removeAttr('readonly');
                     $("#form-bottom-box-value").focus();
+                    $("#form-bottom-box-value")[0].setSelectionRange(0, 0);
                     $(".botbox").addClass("hide");
                     $("#form-bottom-box").removeClass("hide");
                     $("#history-box").removeClass("hide");
@@ -1286,9 +1287,6 @@
                         div.innerHTML = "<i class=\"fas fa-user-bottom\"></i> " + history.by + " <div class=\"history-time\">" + history.time + "</div>";
                         $("#history-box-list").append(div);
                     });
-
-                    $("#history-box").removeClass("hide");
-                    $("#form-bottom-box-value").focus();
                 }
             }
         });
@@ -1843,6 +1841,7 @@
 
                     $("#key-wrap").animate({ scrollTop: keyObj.offset().top - $("#key-view").offset().top + 150 }, 750);
                     $("#form-bottom-box-value").focus();
+                    $("#form-bottom-box-value")[0].setSelectionRange(0, 0);
                 });
             }
         } else {

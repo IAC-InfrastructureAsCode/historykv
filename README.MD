@@ -55,7 +55,7 @@ We have 2 version of configuration, Parameter and Config File.
 
   -disable-login [true/false]
         Disable Login, force all user as anonymous.
-        Default: 
+        Default: false
 
   -sqlite-path [path/to/file.db]
         Location for SQLite db to write and read.
@@ -113,7 +113,7 @@ IP = "0.0.0.0"
 ; Port for HistoryKV to listen.
 Port = 9500
 
-[History]{
+[History]
 ; Limit for History to save on database.
 ; If a key have more than 5, it will automatically deleted.
 Limit = 5
